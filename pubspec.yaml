@@ -22,6 +22,7 @@ dependencies:
     flutter_localizations:
         sdk: flutter
     intl: ^0.19.0
+    permission_handler: ^11.3.1
 
 dev_dependencies:
     flutter_test:
@@ -30,11 +31,3 @@ dev_dependencies:
 
 flutter:
     uses-material-design: true
-    # assets:
-    #     - assets/images/
-    # fonts:
-    #     - family: Roboto
-    #       fonts:
-    #           - asset: assets/fonts/Roboto-Regular.ttf
-    #           - asset: assets/fonts/Roboto-Bold.ttf
-    #             weight: 700

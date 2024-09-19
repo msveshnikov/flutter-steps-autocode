@@ -8,8 +8,11 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:googleapis/drive/v3.dart' as drive;
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:permission_handler/permission_handler.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Permission.activityRecognition.request();
   runApp(
     ChangeNotifierProvider(
       create: (context) => StepTrackerModel(),
@@ -29,11 +32,13 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
         brightness: Brightness.light,
+        useMaterial3: true,
       ),
       darkTheme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
         brightness: Brightness.dark,
+        useMaterial3: true,
       ),
       themeMode: ThemeMode.system,
       home: HomePage(),
@@ -79,6 +84,7 @@ class HomePage extends StatelessWidget {
                 StatsWidget(model: model),
                 GraphWidget(model: model),
                 ControlButtons(model: model),
+                GoalWidget(model: model),
               ],
             ),
           );
@@ -179,6 +185,31 @@ class ControlButtons extends StatelessWidget {
   }
 }
 
+class GoalWidget extends StatelessWidget {
+  final StepTrackerModel model;
+
+  const GoalWidget({Key? key, required this.model}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            Text('Daily Goal: ${model.dailyGoal} steps',
+                style: TextStyle(fontSize: 18)),
+            LinearProgressIndicator(
+              value: model.steps / model.dailyGoal,
+              minHeight: 10,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 class SettingsPage extends StatelessWidget {
   const SettingsPage({Key? key}) : super(key: key);
 
@@ -223,6 +254,31 @@ class SettingsPage extends StatelessWidget {
                   },
                 ),
               ),
+              ListTile(
+                title: Text('Daily Goal'),
+                subtitle: TextFormField(
+                  initialValue: model.dailyGoal.toString(),
+                  keyboardType: TextInputType.number,
+                  onChanged: (value) {
+                    model.setDailyGoal(int.parse(value));
+                  },
+                ),
+              ),
+              ListTile(
+                title: Text('Theme'),
+                trailing: DropdownButton<ThemeMode>(
+                  value: model.themeMode,
+                  onChanged: (ThemeMode? newValue) {
+                    model.setThemeMode(newValue!);
+                  },
+                  items: ThemeMode.values.map((ThemeMode mode) {
+                    return DropdownMenuItem<ThemeMode>(
+                      value: mode,
+                      child: Text(mode.toString().split('.').last),
+                    );
+                  }).toList(),
+                ),
+              ),
             ],
           );
         },
@@ -243,6 +299,8 @@ class StepTrackerModel with ChangeNotifier {
   double _sensitivity = 50;
   bool _syncWithGoogleFit = false;
   bool _syncWithSamsungHealth = false;
+  int _dailyGoal = 10000;
+  ThemeMode _themeMode = ThemeMode.system;
 
   StepTrackerModel() {
     initPlatformState();
@@ -258,6 +316,8 @@ class StepTrackerModel with ChangeNotifier {
   double get sensitivity => _sensitivity;
   bool get syncWithGoogleFit => _syncWithGoogleFit;
   bool get syncWithSamsungHealth => _syncWithSamsungHealth;
+  int get dailyGoal => _dailyGoal;
+  ThemeMode get themeMode => _themeMode;
 
   void initPlatformState() {
     _stepCountStream = Pedometer.stepCountStream;
@@ -307,6 +367,8 @@ class StepTrackerModel with ChangeNotifier {
     prefs.setDouble('sensitivity', _sensitivity);
     prefs.setBool('syncWithGoogleFit', _syncWithGoogleFit);
     prefs.setBool('syncWithSamsungHealth', _syncWithSamsungHealth);
+    prefs.setInt('dailyGoal', _dailyGoal);
+    prefs.setInt('themeMode', _themeMode.index);
   }
 
   void loadData() async {
@@ -321,6 +383,8 @@ class StepTrackerModel with ChangeNotifier {
     _sensitivity = prefs.getDouble('sensitivity') ?? 50;
     _syncWithGoogleFit = prefs.getBool('syncWithGoogleFit') ?? false;
     _syncWithSamsungHealth = prefs.getBool('syncWithSamsungHealth') ?? false;
+    _dailyGoal = prefs.getInt('dailyGoal') ?? 10000;
+    _themeMode = ThemeMode.values[prefs.getInt('themeMode') ?? 0];
     notifyListeners();
   }
 
@@ -349,5 +413,27 @@ class StepTrackerModel with ChangeNotifier {
     _syncWithSamsungHealth = value;
     saveData();
     notifyListeners();
+  }
+
+  void setDailyGoal(int value) {
+    _dailyGoal = value;
+    saveData();
+    notifyListeners();
+  }
+
+  void setThemeMode(ThemeMode mode) {
+    _themeMode = mode;
+    saveData();
+    notifyListeners();
+  }
+
+  Future<void> syncData() async {
+    if (_syncWithGoogleFit) {
+      // Sync with Google Fit
+    }
+    if (_syncWithSamsungHealth) {
+      // Sync with Samsung Health
+      // Implement Samsung Health sync logic here
+    }
   }
 }
