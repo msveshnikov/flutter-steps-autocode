@@ -1,0 +1,24 @@
+Version 1.0.0 (Latest Release)
+
+New Features:
+- Automatic step counting using built-in sensors
+- Calorie, distance, and active time tracking
+- Graphical reports for last 24 hours, weekly, and monthly statistics
+- Privacy-focused design with no sign-in required
+- Flexible step counter controls (start, pause, reset)
+- Google Drive backup and restore functionality
+- Customizable step counting sensitivity
+- Dark mode support
+- Compatibility with Samsung Health and Google Fit
+
+Improvements:
+- Optimized battery usage for all-day tracking
+- Enhanced UI with Material Design 3 principles
+- Improved accuracy for various carrying positions (pocket, bag, hand)
+
+Bug Fixes:
+- Resolved issue with step count discrepancies on certain devices
+- Fixed occasional app crash during data sync
+- Corrected calorie calculation for improved accuracy
+
+We're constantly working to improve Steps Tracker. Stay tuned for upcoming features including colorful themes, goal setting, and social sharing!

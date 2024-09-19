@@ -1,0 +1,42 @@
+Steps Tracker is a powerful, battery-friendly pedometer app designed to help you take control of your fitness journey. Using your device's built-in sensors, it accurately counts your steps, tracks burned calories, walking distance, and time spent moving – all without draining your battery.
+
+Key Features:
+1. Automatic Step Counting: Works seamlessly whether your phone is in your hand, bag, pocket, or armband, even with the screen locked.
+2. Power Efficient: Utilizes built-in sensors for optimal battery life.
+3. Comprehensive Tracking: Monitor steps, calories burned, walking distance, and active time.
+4. Graphical Reports: View your progress with easy-to-read graphs for the last 24 hours, week, and month.
+5. Privacy Focused: No sign-in required, and we don't collect or share your personal data.
+6. Flexible Controls: Start, pause, and reset the step counter at any time.
+7. Data Backup: Securely back up and restore your data using Google Drive.
+8. Customizable Sensitivity: Fine-tune the app for more accurate step counting.
+
+Health Benefits:
+- Weight Management: Track your daily activity to support weight loss or maintenance goals.
+- Cardiovascular Health: Regular walking can improve heart health and lower blood pressure.
+- Stress Reduction: Walking is a great way to clear your mind and reduce stress.
+- Overall Fitness: Increase your daily step count to boost your overall fitness level.
+
+Compatibility:
+- Syncs with Samsung Health and Google Fit for a comprehensive health tracking experience.
+- Optimized for various Android devices, including support for older versions with some limitations.
+
+Technical Features:
+- MVVM Architecture: Ensures efficient UI updates and data management.
+- Jetpack Compose: Utilizes modern UI toolkit for a smooth, native Android experience.
+- Room Database: Provides local persistence for offline access and improved performance.
+- Navigation Component: Simplifies in-app navigation and supports deep linking.
+- Material Design 3: Adopts the latest design guidelines for a modern and consistent look.
+- Dark Mode Support: Enjoy a system-wide dark mode for improved visibility and battery life.
+- Responsive Layout: Optimized UI for different screen sizes and orientations.
+
+Upcoming Features:
+- Colorful Themes
+- Goal Setting
+- Social Sharing
+- Integration with Wearables
+- Challenges
+- Detailed Activity Breakdown
+- Customizable Widgets
+- Advanced Analytics with Machine Learning
+
+Start your journey to a healthier lifestyle today with Steps Tracker – your personal fitness companion that grows with you!

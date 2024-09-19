@@ -1,6 +1,6 @@
 # Steps Tracker
 
-A battery-friendly pedometer app that uses the built-in sensor to count your steps, track burned calories, walking distance, and time. All information is clearly displayed in graphs.
+A battery-friendly pedometer app that uses the built-in sensor to count your steps, track burned calories, walking distance, and time. All information is clearly displayed in graphs. Written in Flutter/Dart.
 
 ## Features
 
@@ -69,3 +69,6 @@ Steps Tracker is designed to improve your health and fitness by encouraging regu
 
 # TODO
 
+2. Develop basic UI using Jetpack Compose
+   - Create main dashboard with step count, calories burned, distance, and time
+   - Implement start, pause, and reset controls

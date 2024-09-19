@@ -1,0 +1,1 @@
+pedometer,step counter,fitness tracker,walking,health,calorie counter,distance tracker,activity

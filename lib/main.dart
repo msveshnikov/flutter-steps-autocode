@@ -113,7 +113,6 @@ class StatsWidget extends StatelessWidget {
                 style: TextStyle(fontSize: 18)),
             Text('Distance: ${model.distance.toStringAsFixed(2)} km',
                 style: TextStyle(fontSize: 18)),
-            Text('Time: ${model.time}', style: TextStyle(fontSize: 18)),
           ],
         ),
       ),
@@ -378,7 +377,7 @@ class StepTrackerModel with ChangeNotifier {
 
   void onStepCount(StepCount event) {
     if (_isTracking) {
-      _steps =  event.steps;
+      _steps = event.steps;
       _calories = calculateCalories();
       _distance = calculateDistance();
       updateStepHistory();
