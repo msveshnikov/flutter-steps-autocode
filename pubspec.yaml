@@ -14,9 +14,9 @@ dependencies:
     sqflite: ^2.0.0+4
     path_provider: ^2.0.2
     shared_preferences: ^2.0.6
-    fl_chart: ^0.68.0
-    google_sign_in: ^5.0.4
-    googleapis: ^5.0.1
+    fl_chart: ^0.69.0
+    google_sign_in: ^6.2.1
+    googleapis: ^13.2.0
     pedometer: ^4.0.2
     health: 11.0.0
     flutter_localizations:
@@ -27,7 +27,7 @@ dependencies:
 dev_dependencies:
     flutter_test:
         sdk: flutter
-    flutter_lints: ^1.0.0
+    flutter_lints: ^4.0.0
 
 flutter:
     uses-material-design: true

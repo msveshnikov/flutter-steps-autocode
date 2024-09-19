@@ -30,19 +30,10 @@
             </intent-filter>
         </activity>
 
-        <service
-            android:name=".StepCounterService"
-            android:foregroundServiceType="dataSync"
-            android:exported="false"/>
-
-
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
 
-        <meta-data
-            android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
     </application>
 
     <queries>

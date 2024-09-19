@@ -22,7 +22,7 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +57,7 @@ class MyApp extends StatelessWidget {
 }
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -97,7 +97,7 @@ class HomePage extends StatelessWidget {
 class StatsWidget extends StatelessWidget {
   final StepTrackerModel model;
 
-  const StatsWidget({Key? key, required this.model}) : super(key: key);
+  const StatsWidget({super.key, required this.model});
 
   @override
   Widget build(BuildContext context) {
@@ -122,7 +122,7 @@ class StatsWidget extends StatelessWidget {
 class GraphWidget extends StatelessWidget {
   final StepTrackerModel model;
 
-  const GraphWidget({Key? key, required this.model}) : super(key: key);
+  const GraphWidget({super.key, required this.model});
 
   @override
   Widget build(BuildContext context) {
@@ -158,7 +158,7 @@ class GraphWidget extends StatelessWidget {
 class ControlButtons extends StatelessWidget {
   final StepTrackerModel model;
 
-  const ControlButtons({Key? key, required this.model}) : super(key: key);
+  const ControlButtons({super.key, required this.model});
 
   @override
   Widget build(BuildContext context) {
@@ -188,7 +188,7 @@ class ControlButtons extends StatelessWidget {
 class GoalWidget extends StatelessWidget {
   final StepTrackerModel model;
 
-  const GoalWidget({Key? key, required this.model}) : super(key: key);
+  const GoalWidget({super.key, required this.model});
 
   @override
   Widget build(BuildContext context) {
@@ -211,7 +211,7 @@ class GoalWidget extends StatelessWidget {
 }
 
 class SettingsPage extends StatelessWidget {
-  const SettingsPage({Key? key}) : super(key: key);
+  const SettingsPage({super.key});
 
   @override
   Widget build(BuildContext context) {

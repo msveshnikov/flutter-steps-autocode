@@ -12,7 +12,6 @@ A battery-friendly pedometer app that uses the built-in sensor to count your ste
 -   **Flexible Controls**: Start, pause, and reset the step counter at any time.
 -   **Data Backup**: Back up and restore data from Google Drive.
 -   **Customizable Sensitivity**: Adjust sensitivity for more accurate step counting.
--   **Multi-language Support**: Available in multiple languages for global users.
 
 ## Upcoming Features
 
@@ -46,22 +45,15 @@ Steps Tracker is designed to improve your health and fitness by encouraging regu
 -   **MVVM Architecture**: Utilizes ViewModel and LiveData for efficient UI updates and data management.
 -   **Jetpack Compose**: Implements modern UI toolkit for building native Android UI.
 -   **Room Database**: Local persistence for offline access and improved performance.
--   **Kotlin Coroutines**: Manages background tasks and asynchronous operations.
--   **Dagger Hilt**: Dependency injection for cleaner and more testable code.
 -   **Navigation Component**: Simplifies in-app navigation and supports deep linking.
 
 ## Design Considerations
 
 -   **Material Design 3**: Adopts the latest Material Design guidelines for a modern and consistent look.
 -   **Dark Mode Support**: Implements a system-wide dark mode for improved visibility and battery life.
--   **Accessibility**: Ensures the app is usable by people with various disabilities.
--   **Localization**: Supports multiple languages and cultural adaptations.
 -   **Responsive Layout**: Optimizes UI for different screen sizes and orientations.
--   **Cross-platform Compatibility**: Ensure consistent experience across Android, iOS, and web platforms.
 -   **Offline-first Architecture**: Implement robust offline functionality for uninterrupted usage.
 -   **Performance Optimization**: Implement lazy loading and efficient data caching strategies.
--   **Security**: Implement end-to-end encryption for sensitive user data.
--   **Modular Architecture**: Adopt a modular approach for easier maintenance and feature additions.
 
 ## Platform-specific Considerations
 
@@ -69,37 +61,11 @@ Steps Tracker is designed to improve your health and fitness by encouraging regu
 
 -   Utilize Android-specific sensors for accurate step counting.
 -   Implement background services for continuous step tracking.
--   Optimize battery usage with WorkManager for periodic syncing.
-
-### iOS
-
--   Leverage HealthKit for seamless integration with iOS health data.
--   Implement widget extensions for iOS home screen.
--   Utilize Core Motion framework for efficient motion processing.
-
-### Web
-
--   Implement Progressive Web App (PWA) features for offline capabilities.
--   Optimize for various browsers and screen sizes.
--   Utilize Web Workers for background processing without affecting UI performance.
 
 ## Data Management
 
 -   Implement efficient data synchronization between local storage and cloud.
--   Use encryption for sensitive user data both in transit and at rest.
 -   Implement data compression techniques for efficient storage and transfer.
-
-## Testing Strategy
-
--   Implement comprehensive unit tests for core functionality.
--   Utilize UI automation tests for cross-platform consistency.
--   Perform rigorous performance testing, especially for step counting accuracy.
-
-## Continuous Integration/Continuous Deployment (CI/CD)
-
--   Set up automated build and test pipelines for all platforms.
--   Implement feature flags for gradual rollout of new features.
--   Utilize crash reporting and analytics tools for monitoring app health.
 
 ## Important Notes
 
@@ -109,4 +75,9 @@ Steps Tracker is designed to improve your health and fitness by encouraging regu
 
 # TODO
 
--   Add pedestrian permissions to Android app
+-   increase sensitivity it count 1 step per 20 (very slow)
+-   improve UI
+-   add height, weight to settings to calc calories properly
+-   save steps history day-to-day to db
+-   show barchart graps for today and for month
+-   fix dark theme (it always light even after switch)
