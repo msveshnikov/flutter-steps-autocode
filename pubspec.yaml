@@ -14,14 +14,11 @@ dependencies:
     sqflite: ^2.0.0+4
     path_provider: ^2.0.2
     shared_preferences: ^2.0.6
-    fl_chart: ^0.40.0
+    fl_chart: ^0.68.0
     google_sign_in: ^5.0.4
     googleapis: ^5.0.1
-    # flutter_local_notifications: ^9.0.0
-    pedometer: ^3.0.0
+    pedometer: ^4.0.2
     health: 11.0.0
-    # google_fit: ^0.0.0
-    workmanager: ^0.4.1
     flutter_localizations:
         sdk: flutter
     intl: ^0.19.0
@@ -35,9 +32,9 @@ flutter:
     uses-material-design: true
     # assets:
     #     - assets/images/
-    fonts:
-        - family: Roboto
-          fonts:
-              - asset: assets/fonts/Roboto-Regular.ttf
-              - asset: assets/fonts/Roboto-Bold.ttf
-                weight: 700
+    # fonts:
+    #     - family: Roboto
+    #       fonts:
+    #           - asset: assets/fonts/Roboto-Regular.ttf
+    #           - asset: assets/fonts/Roboto-Bold.ttf
+    #             weight: 700
