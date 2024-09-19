@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -7,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:googleapis/drive/v3.dart' as drive;
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() {
   runApp(
@@ -18,7 +19,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,52 +28,200 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
+        brightness: Brightness.light,
       ),
+      darkTheme: ThemeData(
+        primarySwatch: Colors.blue,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+        brightness: Brightness.dark,
+      ),
+      themeMode: ThemeMode.system,
       home: HomePage(),
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: [
+        const Locale('en', ''),
+        const Locale('es', ''),
+        const Locale('fr', ''),
+      ],
     );
   }
 }
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Steps Tracker'),
+        title: Text('Steps Tracker'),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.settings),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => SettingsPage()),
+              );
+            },
+          ),
+        ],
       ),
       body: Consumer<StepTrackerModel>(
         builder: (context, model, child) {
-          return Column(
+          return SingleChildScrollView(
+            child: Column(
+              children: [
+                StatsWidget(model: model),
+                GraphWidget(model: model),
+                ControlButtons(model: model),
+              ],
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
+
+class StatsWidget extends StatelessWidget {
+  final StepTrackerModel model;
+
+  const StatsWidget({Key? key, required this.model}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            Text('Steps: ${model.steps}', style: TextStyle(fontSize: 18)),
+            Text('Calories: ${model.calories.toStringAsFixed(2)}',
+                style: TextStyle(fontSize: 18)),
+            Text('Distance: ${model.distance.toStringAsFixed(2)} km',
+                style: TextStyle(fontSize: 18)),
+            Text('Time: ${model.time}', style: TextStyle(fontSize: 18)),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class GraphWidget extends StatelessWidget {
+  final StepTrackerModel model;
+
+  const GraphWidget({Key? key, required this.model}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: SizedBox(
+          height: 200,
+          child: LineChart(
+            LineChartData(
+              lineBarsData: [
+                LineChartBarData(
+                  spots: model.stepHistory.asMap().entries.map((entry) {
+                    return FlSpot(entry.key.toDouble(), entry.value.toDouble());
+                  }).toList(),
+                  isCurved: true,
+                  color: Colors.blue,
+                  barWidth: 3,
+                  dotData: FlDotData(show: false),
+                ),
+              ],
+              titlesData: FlTitlesData(show: false),
+              borderData: FlBorderData(show: false),
+              gridData: FlGridData(show: false),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class ControlButtons extends StatelessWidget {
+  final StepTrackerModel model;
+
+  const ControlButtons({Key? key, required this.model}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          ElevatedButton(
+            onPressed: model.toggleTracking,
+            child: Text(model.isTracking ? 'Pause' : 'Start'),
+          ),
+          ElevatedButton(
+            onPressed: model.reset,
+            child: Text('Reset'),
+          ),
+          ElevatedButton(
+            onPressed: model.backupData,
+            child: Text('Backup'),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class SettingsPage extends StatelessWidget {
+  const SettingsPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Settings'),
+      ),
+      body: Consumer<StepTrackerModel>(
+        builder: (context, model, child) {
+          return ListView(
             children: [
-              Text('Steps: ${model.steps}'),
-              Text('Calories: ${model.calories}'),
-              Text('Distance: ${model.distance}'),
-              Text('Time: ${model.time}'),
-              LineChart(
-                LineChartData(
-                  lineBarsData: [
-                    LineChartBarData(
-                      spots: model.stepHistory.asMap().entries.map((entry) {
-                        return FlSpot(
-                            entry.key.toDouble(), entry.value.toDouble());
-                      }).toList(),
-                    ),
-                  ],
+              ListTile(
+                title: Text('Sensitivity'),
+                subtitle: Slider(
+                  value: model.sensitivity,
+                  min: 0,
+                  max: 100,
+                  divisions: 100,
+                  label: model.sensitivity.round().toString(),
+                  onChanged: (double value) {
+                    model.setSensitivity(value);
+                  },
                 ),
               ),
-              ElevatedButton(
-                onPressed: model.toggleTracking,
-                child: Text(model.isTracking ? 'Pause' : 'Start'),
+              ListTile(
+                title: Text('Sync with Google Fit'),
+                trailing: Switch(
+                  value: model.syncWithGoogleFit,
+                  onChanged: (bool value) {
+                    model.setSyncWithGoogleFit(value);
+                  },
+                ),
               ),
-              ElevatedButton(
-                onPressed: model.reset,
-                child: const Text('Reset'),
-              ),
-              ElevatedButton(
-                onPressed: model.backupData,
-                child: const Text('Backup to Google Drive'),
+              ListTile(
+                title: Text('Sync with Samsung Health'),
+                trailing: Switch(
+                  value: model.syncWithSamsungHealth,
+                  onChanged: (bool value) {
+                    model.setSyncWithSamsungHealth(value);
+                  },
+                ),
               ),
             ],
           );
@@ -91,6 +240,9 @@ class StepTrackerModel with ChangeNotifier {
   bool _isTracking = false;
   late Stream<StepCount> _stepCountStream;
   late Stream<PedestrianStatus> _pedestrianStatusStream;
+  double _sensitivity = 50;
+  bool _syncWithGoogleFit = false;
+  bool _syncWithSamsungHealth = false;
 
   StepTrackerModel() {
     initPlatformState();
@@ -98,16 +250,14 @@ class StepTrackerModel with ChangeNotifier {
   }
 
   int get steps => _steps;
-
   double get calories => _calories;
-
   double get distance => _distance;
-
   String get time => _time.toString().split('.').first;
-
   List<int> get stepHistory => _stepHistory;
-
   bool get isTracking => _isTracking;
+  double get sensitivity => _sensitivity;
+  bool get syncWithGoogleFit => _syncWithGoogleFit;
+  bool get syncWithSamsungHealth => _syncWithSamsungHealth;
 
   void initPlatformState() {
     _stepCountStream = Pedometer.stepCountStream;
@@ -120,7 +270,7 @@ class StepTrackerModel with ChangeNotifier {
     if (_isTracking) {
       _steps++;
       _calories = _steps * 0.04;
-      _distance = _steps * 0.762;
+      _distance = _steps * 0.000762;
       _stepHistory.add(_steps);
       saveData();
       notifyListeners();
@@ -154,6 +304,9 @@ class StepTrackerModel with ChangeNotifier {
     prefs.setString('time', _time.toString());
     prefs.setStringList(
         'stepHistory', _stepHistory.map((e) => e.toString()).toList());
+    prefs.setDouble('sensitivity', _sensitivity);
+    prefs.setBool('syncWithGoogleFit', _syncWithGoogleFit);
+    prefs.setBool('syncWithSamsungHealth', _syncWithSamsungHealth);
   }
 
   void loadData() async {
@@ -165,6 +318,9 @@ class StepTrackerModel with ChangeNotifier {
     _stepHistory =
         prefs.getStringList('stepHistory')?.map((e) => int.parse(e)).toList() ??
             [];
+    _sensitivity = prefs.getDouble('sensitivity') ?? 50;
+    _syncWithGoogleFit = prefs.getBool('syncWithGoogleFit') ?? false;
+    _syncWithSamsungHealth = prefs.getBool('syncWithSamsungHealth') ?? false;
     notifyListeners();
   }
 
@@ -175,5 +331,23 @@ class StepTrackerModel with ChangeNotifier {
     if (account != null) {
       // Implement Google Drive backup logic here
     }
+  }
+
+  void setSensitivity(double value) {
+    _sensitivity = value;
+    saveData();
+    notifyListeners();
+  }
+
+  void setSyncWithGoogleFit(bool value) {
+    _syncWithGoogleFit = value;
+    saveData();
+    notifyListeners();
+  }
+
+  void setSyncWithSamsungHealth(bool value) {
+    _syncWithSamsungHealth = value;
+    saveData();
+    notifyListeners();
   }
 }
