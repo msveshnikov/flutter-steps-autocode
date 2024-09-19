@@ -17,10 +17,10 @@ dependencies:
     fl_chart: ^0.40.0
     google_sign_in: ^5.0.4
     googleapis: ^5.0.1
-    flutter_local_notifications: ^9.0.0
+    # flutter_local_notifications: ^9.0.0
     pedometer: ^3.0.0
     health: 11.0.0
-    google_fit: ^0.0.0
+    # google_fit: ^0.0.0
     workmanager: ^0.4.1
     flutter_localizations:
         sdk: flutter
