@@ -67,17 +67,5 @@ Steps Tracker is designed to improve your health and fitness by encouraging regu
 -   Implement efficient data synchronization between local storage and cloud.
 -   Implement data compression techniques for efficient storage and transfer.
 
-## Important Notes
-
--   Input correct personal information in settings for accurate distance and calorie calculations.
--   Some devices may stop counting steps when the screen is locked due to power-saving features.
--   Step tracking availability may vary on older device versions when the screen is locked.
-
 # TODO
 
--   increase sensitivity it count 1 step per 20 (very slow)
--   improve UI
--   add height, weight to settings to calc calories properly
--   save steps history day-to-day to db
--   show barchart graps for today and for month
--   fix dark theme (it always light even after switch)

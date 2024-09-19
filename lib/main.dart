@@ -1,5 +1,4 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:pedometer/pedometer.dart';
@@ -379,7 +378,7 @@ class StepTrackerModel with ChangeNotifier {
 
   void onStepCount(StepCount event) {
     if (_isTracking) {
-      _steps++;
+      _steps =  event.steps;
       _calories = calculateCalories();
       _distance = calculateDistance();
       updateStepHistory();
@@ -408,15 +407,13 @@ class StepTrackerModel with ChangeNotifier {
   }
 
   double calculateCalories() {
-    // Improved calorie calculation based on height and weight
     double caloriesPerStep = 0.04 * (_weight / 70) * (_height / 170);
     return _steps * caloriesPerStep;
   }
 
   double calculateDistance() {
-    // Improved distance calculation based on height
     double strideLength = _height * 0.415;
-    return (_steps * strideLength) / 100000; // Convert to kilometers
+    return (_steps * strideLength) / 100000;
   }
 
   void updateStepHistory() {
