@@ -46,6 +46,8 @@ Steps Tracker is designed to improve your health and fitness by encouraging regu
 -   **Jetpack Compose**: Implements modern UI toolkit for building native Android UI.
 -   **Room Database**: Local persistence for offline access and improved performance.
 -   **Navigation Component**: Simplifies in-app navigation and supports deep linking.
+-   Always use super.key
+-   Always prefer_const_constructors
 
 ## Design Considerations
 
@@ -69,6 +71,4 @@ Steps Tracker is designed to improve your health and fitness by encouraging regu
 
 # TODO
 
-2. Develop basic UI using Jetpack Compose
-   - Create main dashboard with step count, calories burned, distance, and time
-   - Implement start, pause, and reset controls
+-   make design more colorful and funny, use icons from assets folder (![alt text](assets/images/heart.png) ![alt text](assets/images/run.png) ![alt text](assets/images/walk.png))

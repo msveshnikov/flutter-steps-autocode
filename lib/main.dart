@@ -1,4 +1,5 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:pedometer/pedometer.dart';
@@ -16,7 +17,7 @@ void main() async {
   runApp(
     ChangeNotifierProvider(
       create: (context) => StepTrackerModel(),
-      child: MyApp(),
+      child: const MyApp(),
     ),
   );
 }
@@ -41,16 +42,16 @@ class MyApp extends StatelessWidget {
             useMaterial3: true,
           ),
           themeMode: model.themeMode,
-          home: HomePage(),
-          localizationsDelegates: [
+          home: const HomePage(),
+          localizationsDelegates: const [
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
           ],
-          supportedLocales: [
-            const Locale('en', ''),
-            const Locale('es', ''),
-            const Locale('fr', ''),
+          supportedLocales: const [
+            Locale('en', ''),
+            Locale('es', ''),
+            Locale('fr', ''),
           ],
         );
       },
@@ -65,14 +66,14 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Steps Tracker'),
+        title: const Text('Steps Tracker'),
         actions: [
           IconButton(
-            icon: Icon(Icons.settings),
+            icon: const Icon(Icons.settings),
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => SettingsPage()),
+                MaterialPageRoute(builder: (context) => const SettingsPage()),
               );
             },
           ),
@@ -108,11 +109,32 @@ class StatsWidget extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            Text('Steps: ${model.steps}', style: TextStyle(fontSize: 18)),
-            Text('Calories: ${model.calories.toStringAsFixed(2)}',
-                style: TextStyle(fontSize: 18)),
-            Text('Distance: ${model.distance.toStringAsFixed(2)} km',
-                style: TextStyle(fontSize: 18)),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Column(
+                  children: [
+                    Image.asset('assets/images/walk.png', height: 50),
+                    Text('Steps: ${model.steps}',
+                        style: const TextStyle(fontSize: 18)),
+                  ],
+                ),
+                Column(
+                  children: [
+                    Image.asset('assets/images/heart.png', height: 50),
+                    Text('Calories: ${model.calories.toStringAsFixed(2)}',
+                        style: const TextStyle(fontSize: 18)),
+                  ],
+                ),
+                Column(
+                  children: [
+                    Image.asset('assets/images/run.png', height: 50),
+                    Text('Distance: ${model.distance.toStringAsFixed(2)} km',
+                        style: const TextStyle(fontSize: 18)),
+                  ],
+                ),
+              ],
+            ),
           ],
         ),
       ),
@@ -132,9 +154,9 @@ class GraphWidget extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            Text('Today\'s Steps', style: TextStyle(fontSize: 18)),
+            const Text('Today\'s Steps', style: TextStyle(fontSize: 18)),
             SizedBox(
-              height: 200,
+              height: 180,
               child: BarChart(
                 BarChartData(
                   barGroups:
@@ -150,10 +172,10 @@ class GraphWidget extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(height: 20),
-            Text('Monthly Steps', style: TextStyle(fontSize: 18)),
+            const SizedBox(height: 20),
+            const Text('Monthly Steps', style: TextStyle(fontSize: 18)),
             SizedBox(
-              height: 200,
+              height: 180,
               child: BarChart(
                 BarChartData(
                   barGroups:
@@ -194,11 +216,11 @@ class ControlButtons extends StatelessWidget {
           ),
           ElevatedButton(
             onPressed: model.reset,
-            child: Text('Reset'),
+            child: const Text('Reset'),
           ),
           ElevatedButton(
             onPressed: model.backupData,
-            child: Text('Backup'),
+            child: const Text('Backup'),
           ),
         ],
       ),
@@ -219,7 +241,7 @@ class GoalWidget extends StatelessWidget {
         child: Column(
           children: [
             Text('Daily Goal: ${model.dailyGoal} steps',
-                style: TextStyle(fontSize: 18)),
+                style: const TextStyle(fontSize: 18)),
             LinearProgressIndicator(
               value: model.steps / model.dailyGoal,
               minHeight: 10,
@@ -238,14 +260,14 @@ class SettingsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Settings'),
+        title: const Text('Settings'),
       ),
       body: Consumer<StepTrackerModel>(
         builder: (context, model, child) {
           return ListView(
             children: [
               ListTile(
-                title: Text('Sensitivity'),
+                title: const Text('Sensitivity'),
                 subtitle: Slider(
                   value: model.sensitivity,
                   min: 0,
@@ -258,7 +280,7 @@ class SettingsPage extends StatelessWidget {
                 ),
               ),
               ListTile(
-                title: Text('Sync with Google Fit'),
+                title: const Text('Sync with Google Fit'),
                 trailing: Switch(
                   value: model.syncWithGoogleFit,
                   onChanged: (bool value) {
@@ -267,7 +289,7 @@ class SettingsPage extends StatelessWidget {
                 ),
               ),
               ListTile(
-                title: Text('Sync with Samsung Health'),
+                title: const Text('Sync with Samsung Health'),
                 trailing: Switch(
                   value: model.syncWithSamsungHealth,
                   onChanged: (bool value) {
@@ -276,7 +298,7 @@ class SettingsPage extends StatelessWidget {
                 ),
               ),
               ListTile(
-                title: Text('Daily Goal'),
+                title: const Text('Daily Goal'),
                 subtitle: TextFormField(
                   initialValue: model.dailyGoal.toString(),
                   keyboardType: TextInputType.number,
@@ -286,7 +308,7 @@ class SettingsPage extends StatelessWidget {
                 ),
               ),
               ListTile(
-                title: Text('Height (cm)'),
+                title: const Text('Height (cm)'),
                 subtitle: TextFormField(
                   initialValue: model.height.toString(),
                   keyboardType: TextInputType.number,
@@ -296,7 +318,7 @@ class SettingsPage extends StatelessWidget {
                 ),
               ),
               ListTile(
-                title: Text('Weight (kg)'),
+                title: const Text('Weight (kg)'),
                 subtitle: TextFormField(
                   initialValue: model.weight.toString(),
                   keyboardType: TextInputType.number,
@@ -306,7 +328,7 @@ class SettingsPage extends StatelessWidget {
                 ),
               ),
               ListTile(
-                title: Text('Theme'),
+                title: const Text('Theme'),
                 trailing: DropdownButton<ThemeMode>(
                   value: model.themeMode,
                   onChanged: (ThemeMode? newValue) {
@@ -341,10 +363,10 @@ class StepTrackerModel with ChangeNotifier {
   double _sensitivity = 50;
   bool _syncWithGoogleFit = false;
   bool _syncWithSamsungHealth = false;
-  int _dailyGoal = 10000;
+  int _dailyGoal = 6000;
   ThemeMode _themeMode = ThemeMode.system;
-  double _height = 170;
-  double _weight = 70;
+  double _height = 184;
+  double _weight = 90;
   late Database _database;
 
   StepTrackerModel() {
