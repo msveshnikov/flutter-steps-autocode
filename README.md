@@ -71,4 +71,3 @@ Steps Tracker is designed to improve your health and fitness by encouraging regu
 
 # TODO
 
--   make design more colorful and funny, use icons from assets folder (![alt text](assets/images/heart.png) ![alt text](assets/images/run.png) ![alt text](assets/images/walk.png))
